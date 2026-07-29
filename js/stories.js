@@ -161,8 +161,10 @@ const Stories = {
     if (!confirm("Pakka is kahani ko delete karna hai?")) return;
     try{
       await Stories.colRef().doc(id).delete();
-      if (s.imagePath) storage.ref(s.imagePath).delete().catch(()=>{});
-      if (s.pdfPath) storage.ref(s.pdfPath).delete().catch(()=>{});
+      if (typeof storage !== "undefined"){
+        if (s.imagePath) storage.ref(s.imagePath).delete().catch(()=>{});
+        if (s.pdfPath) storage.ref(s.pdfPath).delete().catch(()=>{});
+      }
       toast("Kahani delete ho gayi.");
       location.hash = "home";
     }catch(err){
@@ -190,6 +192,10 @@ const Stories = {
   },
 
   async uploadFile(file, folder){
+    if (typeof storage === "undefined"){
+      toast("Image/PDF upload abhi available nahi hai (Storage disabled hai). Firebase Blaze plan enable karke js/firebase.js mein storage line uncomment karo.");
+      throw new Error("Storage not enabled");
+    }
     const path = `${folder}/${Date.now()}_${file.name.replace(/\s+/g, "_")}`;
     const ref = storage.ref(path);
     const task = ref.put(file);
