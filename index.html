@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankahi — अनकही कहानियाँ</title>
+<meta name="description" content="Ankahi — Lafzon Mein Aag, Khamoshi Mein Wazan. Apni kahani likho, padho, share karo.">
+<meta name="theme-color" content="#7A1F2B">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/favicon.ico">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dark.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="nav wrap">
+    <a href="#home" class="brand">
+      <span class="flame-dot"></span>
+      <span>Ankahi<small>लफ़्ज़ों में आग, ख़ामोशी में वज़न</small></span>
+    </a>
+
+    <div class="search-bar" style="margin:0; max-width:220px;">
+      <input type="text" id="navSearch" placeholder="Kahani khojo...">
+    </div>
+
+    <nav class="nav-links">
+      <a href="#home" class="nav-btn" data-view="home">Home</a>
+      <a href="#write" class="nav-btn" id="writeNavLink" data-view="write">✍ Likho</a>
+      <a href="#admin" class="nav-btn hidden" id="adminNavLink" data-view="admin">👑 Admin</a>
+      <button class="theme-toggle" id="themeToggle" title="Dark/Light">🌙</button>
+      <span id="authArea"></span>
+    </nav>
+  </div>
+</header>
+<div class="jaali"></div>
+
+<!-- ================= HOME VIEW ================= -->
+<section id="view-home">
+  <div class="hero">
+    <h1>Ankahi</h1>
+    <p class="tagline">"Lafzon Mein Aag, Khamoshi Mein Wazan"</p>
+    <div class="shayari-ticker" id="shayariTicker"></div>
+    <div class="hero-actions">
+      <a href="#write" class="btn-primary">✍ Apni Kahani Likho</a>
+      <a href="#category:kashi" class="btn-ghost">🪔 Kashi ki Kahaniyaan</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="category-bar" id="categoryBar"></div>
+    <h2 class="section-title">Taazi Kahaniyaan</h2>
+    <div class="story-grid" id="storyGrid">
+      <div class="loader"></div>
+    </div>
+    <div style="text-align:center; padding-bottom:30px;">
+      <button class="btn-ghost hidden" id="loadMoreBtn">Aur Kahaniyaan Dekho</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORY DETAIL VIEW ================= -->
+<section id="view-story" class="hidden">
+  <div class="wrap story-detail" id="storyDetail">
+    <div class="loader"></div>
+  </div>
+</section>
+
+<!-- ================= WRITE VIEW ================= -->
+<section id="view-write" class="hidden">
+  <div class="wrap editor-wrap">
+    <h2 class="section-title" id="editorTitle">Apni Kahani Likho ✍</h2>
+
+    <div class="ai-box">
+      <span class="field-label">🤖 AI Story Helper</span>
+      <p style="margin:6px 0; font-size:.9rem;">Idea atak gaya? AI se ek shuruaat, title ya poem draft mangwao — phir usse apne shabdon mein aage badhao.</p>
+      <div class="ai-row">
+        <input type="text" id="aiPrompt" placeholder="e.g. Kashi ki shaam par ek shayari" style="flex:1; margin:0; padding:9px 12px; border-radius:6px; border:1px solid var(--line);">
+        <button class="btn-primary" id="aiGenerateBtn" type="button">✨ Generate</button>
+      </div>
+      <div id="aiSuggestion" class="ai-suggestion hidden"></div>
+    </div>
+
+    <form id="storyForm">
+      <label class="field-label">Title</label>
+      <input type="text" id="storyTitle" placeholder="Kahani ka title..." required maxlength="120">
+
+      <label class="field-label">Category</label>
+      <select id="storyCategory" required></select>
+
+      <label class="field-label">Cover Image (optional)</label>
+      <div class="file-drop">
+        📷 Cover image chuno (JPG/PNG)
+        <input type="file" id="storyImage" accept="image/*">
+      </div>
+
+      <label class="field-label">PDF Attach Karo (optional)</label>
+      <div class="file-drop">
+        📄 Agar poori kahani PDF mein hai to yahan attach karo
+        <input type="file" id="storyPdf" accept="application/pdf">
+      </div>
+
+      <div class="hidden" id="uploadProgressWrap" style="margin-bottom:16px;">
+        <div class="jaali" style="height:6px;"></div>
+        <small id="uploadProgressText">Upload ho raha hai...</small>
+      </div>
+
+      <label class="field-label">Kahani</label>
+      <textarea id="storyContent" placeholder="Yahan apni kahani, shayari ya khayal likho..." required></textarea>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button type="submit" class="btn-primary">🚀 Publish Karo</button>
+        <button type="button" class="btn-ghost" id="cancelEditBtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= LOGIN VIEW ================= -->
+<section id="view-login" class="hidden">
+  <div class="wrap">
+    <div class="auth-card">
+      <h2>Ankahi Mein Aapka Swagat Hai 🙏</h2>
+      <p style="color:var(--ink-soft); font-size:.9rem;">Kahani likhne, like karne aur comment karne ke liye login karo.</p>
+      <button class="google-btn" id="googleLoginBtn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
+        Google se Login Karo
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ADMIN VIEW ================= -->
+<section id="view-admin" class="hidden">
+  <div class="wrap admin-wrap">
+    <div id="adminGuard" class="admin-guard hidden">
+      ⛔ Yeh page sirf admin ke liye hai.
+    </div>
+
+    <div id="adminContent" class="hidden">
+      <div class="admin-header">
+        <h1>Admin Dashboard 👑</h1>
+      </div>
+
+      <div class="admin-stats">
+        <div class="stat-card"><div class="num" id="statStories">0</div><div class="label">Kahaniyaan</div></div>
+        <div class="stat-card"><div class="num" id="statLikes">0</div><div class="label">Likes</div></div>
+        <div class="stat-card"><div class="num" id="statComments">0</div><div class="label">Comments</div></div>
+        <div class="stat-card"><div class="num" id="statUsers">0</div><div class="label">Users</div></div>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="stories">Kahaniyaan</button>
+        <button class="admin-tab" data-tab="categories">Categories</button>
+      </div>
+
+      <div id="adminTabStories">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Title</th><th>Author</th><th>Category</th><th>Reads</th><th>Likes</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="adminStoryTable"></tbody>
+        </table>
+      </div>
+
+      <div id="adminTabCategories" class="hidden">
+        <form id="newCategoryForm" class="admin-inline-form" style="display:flex; gap:8px; margin-bottom:16px;">
+          <input type="text" id="newCategoryId" placeholder="id (e.g. dosti)" style="padding:8px;">
+          <input type="text" id="newCategoryLabel" placeholder="Label (e.g. दोस्ती)" style="padding:8px;">
+          <button type="submit" class="btn-primary">Add Category</button>
+        </form>
+        <div id="categoryManageList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="brand-line">Ankahi<span style="color:var(--gold);">.</span></div>
+  <p>लफ़्ज़ों में आग, ख़ामोशी में वज़न — © <span id="year"></span> Ankahi, made with ❤️ by Abhi's Bite</p>
+</footer>
+
+<div id="toast"></div>
+
+<!-- ================= Firebase (compat SDK) ================= -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<script src="js/firebase.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/categories.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/stories.js"></script>
+<script src="js/likes.js"></script>
+<script src="js/comments.js"></script>
+<script src="js/search.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(console.error);
+  });
+}
+</script>
+
+</body>
+</html>

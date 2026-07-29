@@ -1,0 +1,75 @@
+/* ==========================================================================
+   ANKAHI — admin dashboard
+   ========================================================================== */
+
+.admin-wrap{ padding: 30px 0 60px; }
+
+.admin-header{
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+}
+.admin-header h1{ font-family: var(--font-display); color: var(--maroon); margin: 0; }
+
+.admin-stats{
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px; margin-bottom: 30px;
+}
+.stat-card{
+  background: var(--paper-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 18px; text-align: center;
+  box-shadow: 0 3px 10px var(--shadow);
+}
+.stat-card .num{
+  font-family: var(--font-display); font-size: 1.9rem; color: var(--maroon);
+}
+.stat-card .label{
+  font-family: var(--font-ui); font-size: .78rem; color: var(--ink-soft);
+  text-transform: uppercase; letter-spacing: .5px;
+}
+
+.admin-tabs{ display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+.admin-tab{
+  font-family: var(--font-ui); font-weight: 500; font-size: .88rem;
+  padding: 8px 16px; border-radius: var(--radius) var(--radius) 0 0;
+  border: 1px solid var(--line); border-bottom: none;
+  background: var(--paper-raised); color: var(--ink-soft);
+}
+.admin-tab.active{ color: var(--maroon); background: var(--paper); border-color: var(--gold); font-weight: 700; }
+
+.admin-table{
+  width: 100%; border-collapse: collapse; background: var(--paper-raised);
+  border-radius: var(--radius); overflow: hidden; box-shadow: 0 3px 10px var(--shadow);
+}
+.admin-table th, .admin-table td{
+  padding: 10px 12px; text-align: left; font-size: .88rem;
+  border-bottom: 1px solid var(--line);
+}
+.admin-table th{
+  font-family: var(--font-ui); font-weight: 600; color: var(--maroon);
+  background: rgba(122,31,43,.06); text-transform: uppercase; font-size: .72rem; letter-spacing: .4px;
+}
+.admin-table tr:hover{ background: rgba(201,162,75,.08); }
+
+.badge{
+  display: inline-block; padding: 2px 9px; border-radius: 999px;
+  font-family: var(--font-ui); font-size: .7rem; font-weight: 600;
+}
+.badge.featured{ background: rgba(201,162,75,.25); color: var(--maroon); }
+.badge.published{ background: rgba(60,140,90,.18); color: #2c6b45; }
+.badge.hidden{ background: rgba(122,31,43,.12); color: var(--maroon); }
+
+.row-actions{ display: flex; gap: 6px; flex-wrap: wrap; }
+.row-actions button{
+  font-family: var(--font-ui); font-size: .75rem; padding: 5px 10px;
+  border-radius: 4px; border: 1px solid var(--line); background: var(--paper);
+}
+.row-actions button.danger{ color: var(--maroon); border-color: var(--maroon); }
+.row-actions button.gold{ color: #8a6a1f; border-color: var(--gold); }
+
+.admin-guard{
+  text-align: center; padding: 80px 20px; font-family: var(--font-ui); color: var(--ink-soft);
+}
+
+@media (max-width: 700px){
+  .admin-table{ display: block; overflow-x: auto; }
+}

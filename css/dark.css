@@ -1,0 +1,57 @@
+/* ==========================================================================
+   ANKAHI — dark mode
+   Applied when <body> has class "dark-mode" (toggled + persisted by theme.js)
+   ========================================================================== */
+
+body.dark-mode{
+  --paper: #17110D;
+  --paper-raised: #221912;
+  --ink: #EFE4D3;
+  --ink-soft: #C7B6A2;
+  --maroon: #C9505F;
+  --maroon-dark: #2C0A10;
+  --gold: #D9B45C;
+  --gold-light: #F0D28C;
+  --flame: #FFC061;
+  --line: rgba(239,228,211,0.10);
+  --shadow: rgba(0,0,0,0.45);
+}
+
+body.dark-mode .site-header{
+  background: var(--maroon-dark);
+}
+
+body.dark-mode .hero{
+  background: linear-gradient(180deg, #2C0A10 0%, #17110D 100%);
+}
+
+body.dark-mode .chip{
+  background: var(--paper-raised);
+  color: var(--gold-light);
+  border-color: var(--maroon);
+}
+body.dark-mode .chip.active, body.dark-mode .chip:hover{
+  background: var(--maroon);
+  color: #17110D;
+}
+
+body.dark-mode .story-card{
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+body.dark-mode .story-card .cover.placeholder{
+  color: var(--maroon-dark);
+}
+
+body.dark-mode .btn-primary{
+  color: #17110D;
+}
+
+body.dark-mode .site-footer{
+  background: #0F0A07;
+}
+
+body.dark-mode ::selection{
+  background: var(--gold);
+  color: #17110D;
+}
